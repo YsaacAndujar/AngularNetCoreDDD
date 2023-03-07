@@ -11,6 +11,7 @@ namespace Domain
         public int id { get; set; }
 
         public Brand brand { get; set; }
+
         public int brandId { get; set; }
 
         public string name { get; set; }
