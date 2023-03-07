@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Car
+    public class Brand
     {
-        public int Id { get; set; }
+        public int id { get; set; } 
 
-        public CarModel carModel { get; set; }
-
-        public int year { get; set; }
-
+        public string name { get; set; }
     }
 }
