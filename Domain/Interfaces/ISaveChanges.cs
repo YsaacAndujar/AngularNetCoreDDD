@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IEdit<TEntity>
+    public interface ISaveChanges
     {
-        void Edit(TEntity entity);
+        void SaveChanges();
     }
 }

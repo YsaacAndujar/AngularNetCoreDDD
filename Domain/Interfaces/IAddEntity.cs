@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IAdd<TEntity>
+    public interface IAddEntity<TEntity>
     {
-        TEntity Add(TEntity entity);
+        TEntity AddEntity(TEntity entity);
     }
 }
