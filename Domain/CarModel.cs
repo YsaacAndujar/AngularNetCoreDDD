@@ -15,5 +15,7 @@ namespace Domain
         public int brandId { get; set; }
 
         public string name { get; set; }
+
+        public List<Car> Cars { get; set; }
     }
 }
