@@ -6,24 +6,24 @@ namespace FrontApi.Controllers
 {
     [ApiController]
     [Route("api/brands")]
-    public class BranController : Controller
+    public class BrandController : ControllerBase
     {
         // GET: BranController
         public ActionResult Index()
         {
-            return View();
+            return Ok();
         }
 
         // GET: BranController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return Ok();
         }
 
         // GET: BranController/Create
         public ActionResult Create()
         {
-            return View();
+            return Ok();
         }
 
         // POST: BranController/Create
@@ -36,7 +36,7 @@ namespace FrontApi.Controllers
         // GET: BranController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return Ok();
         }
 
         // POST: BranController/Edit/5
@@ -50,14 +50,14 @@ namespace FrontApi.Controllers
             }
             catch
             {
-                return View();
+                return Ok();
             }
         }
 
         // GET: BranController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return Ok();
         }
 
         // POST: BranController/Delete/5
@@ -71,7 +71,7 @@ namespace FrontApi.Controllers
             }
             catch
             {
-                return View();
+                return Ok();
             }
         }
     }
