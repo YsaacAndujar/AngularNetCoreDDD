@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "FrontApi"
+  "defaultProject": "FrontApi",
+  "cli": {
+    "analytics": false
+  }
 }

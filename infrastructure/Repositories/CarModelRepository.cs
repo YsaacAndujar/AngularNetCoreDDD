@@ -5,34 +5,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Contexts;
 
 namespace Infrastructure.Repositories
 {
     internal class CarModelRepository : ICrudRepository<CarModel, int>
     {
+        CarsContext db;
+        public CarModelRepository(CarsContext _db)
+        {
+            db = _db;
+        }
         public CarModel AddEntity(CarModel entity)
         {
-            throw new NotImplementedException();
+            db.CarModels.Add(entity);
+            return entity;
         }
 
         public void Edit(CarModel entity)
         {
-            throw new NotImplementedException();
+            var entityDb = db.CarModels.Find(entity.id);
+            if (entityDb == null)
+            {
+                return;
+            }
+            db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
 
         public CarModel FindById(int id)
         {
-            throw new NotImplementedException();
+            return db.CarModels.Find(id);
         }
 
         public List<CarModel> GetAll()
         {
-            throw new NotImplementedException();
+            return db.CarModels.ToList();
         }
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
     }
 }

@@ -24,27 +24,27 @@ namespace Infrastructure.Repositories
 
         public void Edit(Car entity)
         {
-            var entitySelected = db.Car.Where(c => c.id == entity.id).FirstOrDefault();
-            if(entitySelected == null)
+            var entityDb = db.Car.Find(entity.id);
+            if (entityDb == null)
             {
                 return;
             }
-
+            db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
 
         public Car FindById(int id)
         {
-            throw new NotImplementedException();
+            return db.Car.Find(id);
         }
 
         public List<Car> GetAll()
         {
-            throw new NotImplementedException();
+            return db.Car.ToList();
         }
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
     }
 }

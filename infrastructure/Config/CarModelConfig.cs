@@ -19,6 +19,7 @@ namespace Infrastructure.Config
                 .HasOne(cm => cm.brand)
                 .WithMany(b => b.carsModels)
                 .HasForeignKey(cm => cm.brandId);
+            builder.HasIndex(cm => new { cm.brandId, cm.name }).IsUnique();
 
         }
     }

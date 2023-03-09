@@ -5,34 +5,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Contexts;
 
 namespace Infrastructure.Repositories
 {
     internal class BrandRepository : ICrudRepository<Brand, int>
     {
+        CarsContext db;
+        public BrandRepository(CarsContext _db)
+        {
+            db = _db;
+        }
         public Brand AddEntity(Brand entity)
         {
-            throw new NotImplementedException();
+            db.Brands.Add(entity);
+            return entity;
         }
 
         public void Edit(Brand entity)
         {
-            throw new NotImplementedException();
+            var entityDb = db.Brands.Find(entity.id);
+            if(entityDb == null)
+            {
+                return;
+            }
+            db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
         }
 
         public Brand FindById(int id)
         {
-            throw new NotImplementedException();
+            return db.Brands.Find(id);
         }
 
         public List<Brand> GetAll()
         {
-            throw new NotImplementedException();
+            return db.Brands.ToList();
         }
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
     }
 }

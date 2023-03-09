@@ -19,7 +19,8 @@ namespace Infrastructure.Config
                 .HasOne(c => c.carModel)
                 .WithMany(cm => cm.Cars)
                 .HasForeignKey(c => c.carModelId);
-                
+            builder.HasIndex(c => new { c.carModelId, c.year }).IsUnique();
+
         }
     }
 }
