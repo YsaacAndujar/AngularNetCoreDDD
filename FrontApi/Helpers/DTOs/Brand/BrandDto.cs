@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace FrontApi.DTOs
+namespace FrontApi.Helpers.DTOs.Brand
 {
     public class BrandDto
     {

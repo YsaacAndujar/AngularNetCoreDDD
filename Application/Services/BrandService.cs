@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Domain;
 using Domain.Interfaces.Repositories;
 using Application.Interfaces;
+
 namespace Application.Services
 {
     public class BrandService : IBaseService<Brand, int>

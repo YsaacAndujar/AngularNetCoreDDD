@@ -1,8 +1,8 @@
 ﻿using Application.Services;
+using AutoMapper;
 using Domain;
-using FrontApi.DTOs;
 using FrontApi.Helpers.CustomControllers;
-using Microsoft.AspNetCore.Http;
+using FrontApi.Helpers.DTOs.Brand;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontApi.Controllers
@@ -11,25 +11,42 @@ namespace FrontApi.Controllers
     [Route("api/brands")]
     public class BrandController : CrudBaseController<Brand, int>
     {
-        public BrandController(BrandService brandService): base(brandService)
+        IMapper mapper;
+        public BrandController(BrandService brandService, IMapper _mapper): base(brandService)
         {
-
+            mapper = _mapper;
         }
         [HttpGet]
-        public ActionResult<List<Brand>> Index()
+        public ActionResult<List<BrandDto>> Get()
         {
-            return GetAll();
+
+            return mapper.Map<List<BrandDto>>(GetAll());
         }
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<BrandDto> FindById(int id)
+        public ActionResult<BrandDto> Get(int id)
         {
-            return new BrandDto();
+            return mapper.Map<BrandDto>(FindById(id));
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] BrandCreateDto brand)
+        public ActionResult<BrandDto> Create([FromBody] BrandCreateDto brand)
         {
+            var entity = mapper.Map<Brand>(brand);
+            return mapper.Map<BrandDto>(AddEntity(entity));
+        }
+        [HttpPut]
+        public ActionResult Put(BrandDto brandUpdateDto)
+        {
+            var entity = mapper.Map<Brand>(brandUpdateDto);
+            Edit(entity);
+            return Ok();
+        }
+        [HttpDelete]
+        public ActionResult Delete(BrandDto brandUpdateDto)
+        {
+            var entity = mapper.Map<Brand>(brandUpdateDto);
+            Edit(entity);
             return Ok();
         }
 
