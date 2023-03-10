@@ -1,13 +1,18 @@
+using Application.Services;
 using FluentValidation.AspNetCore;
 using System.Reflection;
+using Infrastructure.Repositories;
+using Infrastructure.Contexts;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+CarsContext carsContext = new CarsContext();
 builder.Services.AddControllersWithViews()
     .AddFluentValidation(c => c.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
-
+builder.Services.AddScoped<BrandService>(provider => new BrandService(new BrandRepository(carsContext)));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

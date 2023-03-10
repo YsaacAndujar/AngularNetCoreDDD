@@ -16,9 +16,15 @@ namespace FrontApi.Controllers
 
         }
         [HttpGet]
-        public ActionResult<Brand> Index()
+        public ActionResult<List<Brand>> Index()
         {
-            return Ok();
+            return GetAll();
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult<BrandDto> FindById(int id)
+        {
+            return new BrandDto();
         }
 
         [HttpPost]

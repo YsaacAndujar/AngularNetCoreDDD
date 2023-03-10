@@ -6,13 +6,29 @@ namespace FrontApi.Helpers.CustomControllers
     public class CrudBaseController<TEntity, TEntityId> : ControllerBase
     {
         IBaseService<TEntity, TEntityId> service;
-        protected CrudBaseController(IBaseService<TEntity, TEntityId> _service)
+        public CrudBaseController(IBaseService<TEntity, TEntityId> _service)
         {
             service = _service;
         }
-        List<TEntity> GetAll()
+        public List<TEntity> GetAll()
         {
             return service.GetAll();
+        }
+        public TEntity FindById(TEntityId id)
+        {
+            return service.FindById(id);
+        }
+        public void Edit(TEntity entity)
+        {
+            service.Edit(entity);
+        }
+        public TEntity AddEntity(TEntity entity)
+        {
+            return service.AddEntity(entity);
+        }
+        public void Delete(TEntity id)
+        {
+            service.Delete(id);
         }
 
     }

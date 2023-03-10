@@ -9,7 +9,7 @@ using Infrastructure.Contexts;
 
 namespace Infrastructure.Repositories
 {
-    internal class BrandRepository : ICrudRepository<Brand, int>
+    public class BrandRepository : ICrudRepository<Brand, int>
     {
         CarsContext db;
         public BrandRepository(CarsContext _db)
@@ -40,7 +40,7 @@ namespace Infrastructure.Repositories
 
         public List<Brand> GetAll()
         {
-            return db.Brands.ToList();
+            return new List<Brand>();
         }
 
         public void SaveChanges()

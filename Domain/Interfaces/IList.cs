@@ -9,6 +9,6 @@ namespace Domain.Interfaces
     public interface IList<TEntity, TEntityId>
     {
         List<TEntity> GetAll();
-        TEntity FindById(int id);
+        TEntity FindById(TEntityId id);
     }
 }
