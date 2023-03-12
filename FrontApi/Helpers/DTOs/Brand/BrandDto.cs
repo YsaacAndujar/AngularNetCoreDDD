@@ -8,6 +8,5 @@ namespace FrontApi.Helpers.DTOs.Brand
 
         public string name { get; set; }
 
-        public List<CarModel> carsModels { get; set; }
     }
 }

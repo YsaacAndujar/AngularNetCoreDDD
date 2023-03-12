@@ -1,83 +1,52 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.Services;
+using AutoMapper;
+using Domain;
+using FrontApi.Helpers.CustomControllers;
+using FrontApi.Helpers.DTOs.CarModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontApi.Controllers
 {
-    public class CarModelController : Controller
+    public class CarModelController : CrudBaseController<CarModel, int>
     {
-        // GET: CarModelController
-        public ActionResult Index()
+        IMapper mapper;
+        public CarModelController(CarModelService carModelService, IMapper _mapper) : base(carModelService)
         {
-            return View();
+            mapper = _mapper;
+        }
+        [HttpGet]
+        public ActionResult<List<CarModelDto>> Get()
+        {
+
+            return mapper.Map<List<CarModelDto>>(GetAll());
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult<CarModelDto> Get(int id)
+        {
+            return mapper.Map<CarModelDto>(FindById(id));
         }
 
-        // GET: CarModelController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: CarModelController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CarModelController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult<CarModelDto> Create([FromBody] CarModelCreateDto carModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var entity = mapper.Map<CarModel>(carModel);
+            return mapper.Map<CarModelDto>(AddEntity(entity));
         }
-
-        // GET: CarModelController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpPut]
+        public ActionResult Put(CarModelUpdateDto carModelUpdateDto)
         {
-            return View();
+            var entity = mapper.Map<CarModel>(carModelUpdateDto);
+            Edit(entity);
+            return Ok();
         }
-
-        // POST: CarModelController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CarModelController/Delete/5
+        [HttpDelete]
+        [Route("{id}")]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: CarModelController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            Delete(id);
+            return Ok();
         }
     }
 }

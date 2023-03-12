@@ -12,7 +12,17 @@ CarsContext carsContext = new CarsContext();
 builder.Services.AddControllersWithViews()
     .AddFluentValidation(c => c.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
-builder.Services.AddScoped<BrandService>(provider => new BrandService(new BrandRepository(carsContext)));
+builder.Services.AddScoped(provider => new BrandService(new BrandRepository(carsContext)));
+builder.Services.AddScoped(provider => new CarModelService(
+        new CarModelRepository(carsContext)
+        , new BrandRepository(carsContext)
+    )
+);
+builder.Services.AddScoped(provider => new CarService(
+        new CarModelRepository(carsContext)
+        , new CarRepository(carsContext)
+    )
+);
 builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 

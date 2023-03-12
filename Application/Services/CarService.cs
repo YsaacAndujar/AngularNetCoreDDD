@@ -34,7 +34,7 @@ namespace Application.Services
             if (entity == null)
                 throw new ArgumentNullException("CarModel is required");
             if (_carModelRepository.FindById(entity.carModelId) == null)
-                throw new ArgumentNullException("Model is required");
+                throw new ArgumentNullException("CarModel is required");
             _carRepository.Edit(entity);
             _carRepository.SaveChanges();
         }

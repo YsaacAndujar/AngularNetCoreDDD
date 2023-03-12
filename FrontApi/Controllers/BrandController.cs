@@ -36,17 +36,17 @@ namespace FrontApi.Controllers
             return mapper.Map<BrandDto>(AddEntity(entity));
         }
         [HttpPut]
-        public ActionResult Put(BrandDto brandUpdateDto)
+        public ActionResult Put(BrandUpdateDto brandUpdateDto)
         {
             var entity = mapper.Map<Brand>(brandUpdateDto);
             Edit(entity);
             return Ok();
         }
         [HttpDelete]
-        public ActionResult Delete(BrandDto brandUpdateDto)
+        [Route("{id}")]
+        public ActionResult Delete(int id)
         {
-            var entity = mapper.Map<Brand>(brandUpdateDto);
-            Edit(entity);
+            Delete(id);
             return Ok();
         }
 

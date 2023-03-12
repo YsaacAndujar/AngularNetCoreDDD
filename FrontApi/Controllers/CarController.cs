@@ -1,83 +1,51 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.Services;
+using AutoMapper;
+using Domain;
+using FrontApi.Helpers.CustomControllers;
+using FrontApi.Helpers.DTOs.Car;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontApi.Controllers
 {
-    public class CarController : Controller
+    public class CarController : CrudBaseController<Car, int>
     {
-        // GET: CarController
-        public ActionResult Index()
+        IMapper mapper;
+        public CarController(CarService carService, IMapper _mapper) : base(carService)
         {
-            return View();
+            mapper = _mapper;
+        }
+        [HttpGet]
+        public ActionResult<List<CarDto>> Get()
+        {
+
+            return mapper.Map<List<CarDto>>(GetAll());
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult<CarDto> Get(int id)
+        {
+            return mapper.Map<CarDto>(FindById(id));
         }
 
-        // GET: CarController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: CarController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CarController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult<CarDto> Create([FromBody] CarCreateDto car)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var entity = mapper.Map<Car>(car);
+            return mapper.Map<CarDto>(AddEntity(entity));
         }
-
-        // GET: CarController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpPut]
+        public ActionResult Put(CarUpdateDto carUpdateDto)
         {
-            return View();
+            var entity = mapper.Map<Car>(carUpdateDto);
+            Edit(entity);
+            return Ok();
         }
-
-        // POST: CarController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CarController/Delete/5
+        [HttpDelete]
+        [Route("{id}")]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: CarController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            Delete(id);
+            return Ok();
         }
     }
 }

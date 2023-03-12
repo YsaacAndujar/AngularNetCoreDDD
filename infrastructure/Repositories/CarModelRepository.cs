@@ -9,7 +9,7 @@ using Infrastructure.Contexts;
 
 namespace Infrastructure.Repositories
 {
-    internal class CarModelRepository : ICrudRepository<CarModel, int>
+    public class CarModelRepository : ICrudRepository<CarModel, int>
     {
         CarsContext db;
         public CarModelRepository(CarsContext _db)
