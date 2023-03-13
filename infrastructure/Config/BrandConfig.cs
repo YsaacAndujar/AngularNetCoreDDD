@@ -13,10 +13,9 @@ namespace Infrastructure.Config
     {
         public void Configure(EntityTypeBuilder<Brand> builder)
         {
-            builder.ToTable("CarsModels");
+            builder.ToTable("Brands");
             builder.HasKey(b => b.id);
-            builder
-                .HasMany(b => b.carsModels);
+            //builder.HasMany(b => b.carsModels);
 
         }
     }

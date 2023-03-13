@@ -12,6 +12,6 @@ namespace Domain
 
         public string name { get; set; }
 
-        public List<CarModel> carsModels { get; set; }
+        public List<CarModel>? carsModels { get; set; }
     }
 }

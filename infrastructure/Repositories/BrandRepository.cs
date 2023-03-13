@@ -40,7 +40,7 @@ namespace Infrastructure.Repositories
 
         public List<Brand> GetAll()
         {
-            return new List<Brand>();
+            return db.Brands.ToList();
         }
 
         public void SaveChanges()

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FrontApi.Controllers
 {
+    [ApiController]
+    [Route("api/cars")]
     public class CarController : CrudBaseController<Car, int>
     {
         IMapper mapper;

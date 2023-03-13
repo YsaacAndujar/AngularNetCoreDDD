@@ -4,11 +4,18 @@ using System.Reflection;
 using Infrastructure.Repositories;
 using Infrastructure.Contexts;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-CarsContext carsContext = new CarsContext();
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbPaswword = Environment.GetEnvironmentVariable("DB_SA_PASWWORD");
+var connectionString = $"Data Source={dbHost};Initial Catalog = {dbName};User Id=sa; Password={dbPaswword};TrustServerCertificate=true";
+var optionBuilder = new DbContextOptionsBuilder<CarsContext>();
+optionBuilder.UseSqlServer(connectionString);
+CarsContext carsContext = new CarsContext(optionBuilder.Options);
 builder.Services.AddControllersWithViews()
     .AddFluentValidation(c => c.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
