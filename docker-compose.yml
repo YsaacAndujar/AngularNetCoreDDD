@@ -2,7 +2,7 @@ version: '3.4'
 
 networks:
   angularcrud:
-
+    driver: bridge 
 services:
   carsdb:
     container_name: app-db
@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: FrontApi/Dockerfile
     ports:
-      - 8001:80
+      - 8001:443
     depends_on:
       - carsdb
     environment:
