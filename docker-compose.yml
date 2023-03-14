@@ -3,6 +3,8 @@ version: '3.4'
 networks:
   angularcrud:
     driver: bridge 
+  angularcrudd:
+    driver: bridge 
 services:
   carsdb:
     container_name: app-db
@@ -29,4 +31,17 @@ services:
       - DB_NAME=CarsDb
       - DB_SA_PASWWORD=password@12345#
     networks:
-      - angularcrud
+      - angularcrud      
+      - angularcrudd
+  angular-service:
+    container_name: angular-service-container
+    build: ./frontend
+    volumes:
+      - './frontend:/app'
+    ports:
+      - 4500:4500
+    depends_on:
+      - frontapi
+    networks:
+      - angularcrudd
+
