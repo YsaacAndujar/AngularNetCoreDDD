@@ -1,13 +1,13 @@
 version: '3.4'
 
 networks:
-  angularcrud:
+  apidb:
     driver: bridge 
-  angularcrudd:
+  apifront:
     driver: bridge 
 services:
   carsdb:
-    container_name: app-db
+    container_name: Database
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
       - 8002:1433
@@ -15,13 +15,13 @@ services:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=password@12345#
     networks:
-      - angularcrud
-  frontapi:
-    container_name: AngularCrudApp
-    image: ${DOCKER_REGISTRY-}frontapi
+      - apidb
+  api:
+    container_name: Api
+    image: ${DOCKER_REGISTRY-}api
     build:
       context: .
-      dockerfile: FrontApi/Dockerfile
+      dockerfile: Api/Dockerfile
     ports:
       - 8001:443
     depends_on:
@@ -31,17 +31,17 @@ services:
       - DB_NAME=CarsDb
       - DB_SA_PASWWORD=password@12345#
     networks:
-      - angularcrud      
-      - angularcrudd
-  angular-service:
-    container_name: angular-service-container
+      - apidb      
+      - apifront
+  frontend:
+    container_name: Frontend
     build: ./frontend
     volumes:
       - './frontend:/app'
     ports:
       - 4500:4500
     depends_on:
-      - frontapi
+      - api
     networks:
-      - angularcrudd
+      - apifront
 

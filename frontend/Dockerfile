@@ -1,9 +1,12 @@
 FROM node:18.10.0
 
 RUN mkdir /usr/src/app
+
 WORKDIR /usr/src/app
 
 RUN npm install -g @angular/cli@14.2.2
+COPY package*.json ./
+RUN npm install
 
 COPY . /usr/src/app/
 
