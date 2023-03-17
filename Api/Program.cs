@@ -21,25 +21,31 @@ var dbPaswword = Environment.GetEnvironmentVariable("DB_SA_PASWWORD");
 var connectionString = $"Data Source={dbHost};Initial Catalog = {dbName};User Id=sa; Password={dbPaswword};TrustServerCertificate=true";
 var optionBuilder = new DbContextOptionsBuilder<CarsContext>();
 optionBuilder.UseSqlServer(connectionString);
-CarsContext carsContext = new CarsContext(optionBuilder.Options);
+CarsContext brandContext = new CarsContext(optionBuilder.Options);
+CarsContext carmodelContext = new CarsContext(optionBuilder.Options);
+CarsContext carContext = new CarsContext(optionBuilder.Options);
 builder.Services.AddControllersWithViews()
     .AddFluentValidation(c => c.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
-builder.Services.AddScoped(provider => new BrandService(new BrandRepository(carsContext)));
+builder.Services.AddScoped(provider => new BrandService(new BrandRepository(brandContext)));
 builder.Services.AddScoped(provider => new CarModelService(
-        new CarModelRepository(carsContext)
-        , new BrandRepository(carsContext)
+        new CarModelRepository(carmodelContext)
+        , new BrandRepository(carmodelContext)
     )
 );
 builder.Services.AddScoped(provider => new CarService(
-        new CarModelRepository(carsContext)
-        , new CarRepository(carsContext)
+        new CarModelRepository(carContext)
+        , new CarRepository(carContext)
     )
 );
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddCors(policyBuilder =>
+    policyBuilder.AddDefaultPolicy(policy =>
+        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
+);
 var app = builder.Build();
 
-
+app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
