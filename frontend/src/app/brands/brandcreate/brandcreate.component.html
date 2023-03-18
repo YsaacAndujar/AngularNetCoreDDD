@@ -1,0 +1,11 @@
+<form [formGroup]="formBrand" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Name*:</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter brand name" formControlName="name">
+      <div class="alert alert-danger mt-2" [hidden]="name?.valid || name?.pristine">
+        Name is required
+      </div>
+    </div>
+    <input type="submit" class="btn btn-success float-right" [disabled]="formBrand.invalid || creating" value="Submit">
+    <a href="/brands" class="btn btn-primary float-right mr-3">Cancel</a>
+</form>

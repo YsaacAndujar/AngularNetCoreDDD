@@ -11,13 +11,16 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BranddetailsComponent } from './brands/branddetails/branddetails.component';
 import { BrandlistComponent } from './brands/brandlist/brandlist.component';
+import { BrandcreateComponent } from './brands/brandcreate/brandcreate.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes:Routes=[
   {path:'', component:HomeComponent},
   {path:'brands',component:BrandsComponent,
     children: [
       {path:'',component:BrandlistComponent},
-      {path: ":id", component:BranddetailsComponent}
+      {path: "create", component:BrandcreateComponent},
+      {path: ":id", component:BranddetailsComponent},
     ]
   },
   {path:'carsmodels',component:CarsmodelsComponent},
@@ -33,12 +36,15 @@ const appRoutes:Routes=[
     CarsComponent,
     HomeComponent,
     BranddetailsComponent,
-    BrandlistComponent
+    BrandlistComponent,
+    BrandcreateComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

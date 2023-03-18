@@ -4,6 +4,7 @@ using Domain;
 using Api.Helpers.CustomControllers;
 using Api.Helpers.DTOs.Brand;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace Api.Controllers
 {
@@ -17,12 +18,14 @@ namespace Api.Controllers
             mapper = _mapper;
         }
         [HttpGet]
+        [EnableCors("corsapp")]
         public ActionResult<List<BrandDto>> Get()
         {
 
             return mapper.Map<List<BrandDto>>(GetAll());
         }
         [HttpGet]
+        [EnableCors("corsapp")]
         [Route("{id}")]
         public ActionResult<BrandDto> Get(int id)
         {
@@ -30,12 +33,14 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [EnableCors("corsapp")]
         public ActionResult<BrandDto> Create([FromBody] BrandCreateDto brand)
         {
             var entity = mapper.Map<Brand>(brand);
             return mapper.Map<BrandDto>(AddEntity(entity));
         }
         [HttpPut]
+        [EnableCors("corsapp")]
         public ActionResult Put(BrandUpdateDto brandUpdateDto)
         {
             var entity = mapper.Map<Brand>(brandUpdateDto);
@@ -43,6 +48,7 @@ namespace Api.Controllers
             return Ok();
         }
         [HttpDelete]
+        [EnableCors("corsapp")]
         [Route("{id}")]
         public ActionResult Delete(int id)
         {
