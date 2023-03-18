@@ -29,7 +29,8 @@ namespace Infrastructure.Repositories
             {
                 return;
             }
-            db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            entityDb.name = entity.name;
+            //db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
         }
 

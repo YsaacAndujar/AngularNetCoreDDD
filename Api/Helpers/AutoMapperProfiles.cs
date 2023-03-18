@@ -12,18 +12,18 @@ namespace Api.Helpers
         {
             CreateMap<Brand, BrandDto>().ReverseMap();
             CreateMap<Brand, BrandCreateDto>().ReverseMap();
-            CreateMap<BrandDto, BrandCreateDto>();
-            CreateMap<Brand, BrandUpdateDto>();
+            CreateMap<BrandDto, BrandCreateDto>().ReverseMap();
+            CreateMap<Brand, BrandUpdateDto>().ReverseMap();
 
             CreateMap<CarModel, CarModelDto>().ReverseMap();
             CreateMap<CarModel, CarModelCreateDto>().ReverseMap();
-            CreateMap<CarModelDto, CarModelCreateDto>();
-            CreateMap<CarModel, CarModelUpdateDto>();
+            CreateMap<CarModelDto, CarModelCreateDto>().ReverseMap();
+            CreateMap<CarModel, CarModelUpdateDto>().ReverseMap();
 
             CreateMap<Car, CarDto>().ReverseMap();
             CreateMap<Car, CarCreateDto>().ReverseMap();
-            CreateMap<CarDto, CarCreateDto>();
-            CreateMap<Car, CarUpdateDto>();
+            CreateMap<CarDto, CarCreateDto>().ReverseMap();
+            CreateMap<Car, CarUpdateDto>().ReverseMap();
         }
     }
 }

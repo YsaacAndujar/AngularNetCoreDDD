@@ -16,7 +16,6 @@ export class BrandlistComponent {
   ngOnInit():void{
     this.loading = true
     this.api.getAll().subscribe((data: Brand[]) => {
-      console.log(data)
       this.brands = data
       this.loading = false
     });

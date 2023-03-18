@@ -23,6 +23,7 @@ export class BrandcreateComponent {
     this.creating = true
     this.api.create(this.formBrand.value as Brand).subscribe((data: Brand) => {
       alert(`Brand: ${data.name} created with Id: ${data.id}`)
+      this.formBrand.reset()
       this.creating = false
     });
   }

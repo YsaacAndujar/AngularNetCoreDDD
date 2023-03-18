@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
 var dbName = Environment.GetEnvironmentVariable("DB_NAME");
 var dbPaswword = Environment.GetEnvironmentVariable("DB_SA_PASWWORD");
-var connectionString = $"Data Source=DESKTOP-PMHSDT1\\SQLEXPRESS;Initial Catalog = Cars;;TrustServerCertificate=true;Integrated Security=true;";
+var connectionString = $"Data Source={dbHost};Initial Catalog = {dbName};User Id=sa; Password={dbPaswword};TrustServerCertificate=true";
 var optionBuilder = new DbContextOptionsBuilder<CarsContext>();
 optionBuilder.UseSqlServer(connectionString);
 CarsContext brandContext = new CarsContext(optionBuilder.Options);
@@ -39,6 +39,7 @@ builder.Services.AddScoped(provider => new CarService(
     )
 );
 builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddCors(p => p.AddPolicy("corsapp", build =>
 {
     build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
@@ -52,7 +53,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("corsapp");
+
 app.UseHttpsRedirection();
+
 app.UseAuthorization();
 
 app.MapControllers();
