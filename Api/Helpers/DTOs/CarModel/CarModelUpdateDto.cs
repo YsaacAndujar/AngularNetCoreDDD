@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Services;
+using FluentValidation;
 
 namespace Api.Helpers.DTOs.CarModel
 {
@@ -11,11 +12,20 @@ namespace Api.Helpers.DTOs.CarModel
     }
     public class CarModelUpdateValidator : AbstractValidator<CarModelUpdateDto>
     {
-        public CarModelUpdateValidator()
+        BrandService brandService { get; set; }
+        public CarModelUpdateValidator(BrandService _brandService)
         {
+            brandService = _brandService;
             RuleFor(model => model.name).NotEmpty().WithMessage("Name is required");
             RuleFor(model => model.brandId).NotEmpty().WithMessage("Brand Id is required");
             RuleFor(model => model.id).NotEmpty().WithMessage("Id is required");
+            RuleFor(model => model.brandId).Custom((brandId, context) => {
+                if (brandId == null) { return; }
+                if (brandService.FindById((int)brandId) == null)
+                {
+                    context.AddFailure("Brand does not exist");
+                }
+            });
         }
     }
 }

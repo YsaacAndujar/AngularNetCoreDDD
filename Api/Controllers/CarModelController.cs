@@ -3,7 +3,6 @@ using AutoMapper;
 using Domain;
 using Api.Helpers.CustomControllers;
 using Api.Helpers.DTOs.CarModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 
@@ -11,14 +10,13 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("api/carmodels")]
+    [EnableCors("corsapp")]
     public class CarModelController : CrudBaseController<CarModel, int>
     {
         IMapper mapper;
-        CarModelService carModelService;
         public CarModelController(CarModelService _carModelService, IMapper _mapper) : base(_carModelService)
         {
             mapper = _mapper;
-            carModelService = _carModelService;
         }
         [HttpGet]
         [EnableCors("corsapp")]
@@ -28,19 +26,13 @@ namespace Api.Controllers
             return mapper.Map<List<CarModelDto>>(GetAll());
         }
         [HttpGet]
-        [Route("{id}")]
         [EnableCors("corsapp")]
+        [Route("{id}")]
         public ActionResult<CarModelDto> Get(int id)
         {
             return mapper.Map<CarModelDto>(FindById(id));
         }
-        [HttpGet]
-        [Route("{id}")]
-        [EnableCors("corsapp")]
-        public ActionResult<List<CarModelDto>> GetForBrand(int id)
-        {
-            return mapper.Map<List<CarModelDto>>(GetAll().Where(cm=>cm.brandId ==id));
-        }
+
 
         [HttpPost]
         [EnableCors("corsapp")]

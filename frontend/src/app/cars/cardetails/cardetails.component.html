@@ -18,11 +18,12 @@
     </div>
     <div class="form-group">
         <label >Year*:</label>
-        <input class="form-control" placeholder="Enter car year" formControlName="year">
+        <input class="form-control" type='number' placeholder="Enter car year" formControlName="year">
         <div class="alert alert-danger mt-2" [hidden]="year?.valid || year?.pristine">
           Year has to be >= 1
         </div>
       </div>
     <input type="submit" class="btn btn-success float-right" [disabled]="formCar.invalid || loading || carModelId?.value==0" value="Submit">
+    <button type="button" class="btn btn-danger float-right mr-3" (click)="deleteEntity()">Delete</button>
     <a href="/cars" class="btn btn-primary float-right mr-3">Cancel</a>
 </form>

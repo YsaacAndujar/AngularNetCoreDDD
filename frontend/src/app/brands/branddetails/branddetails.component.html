@@ -7,5 +7,6 @@
       </div>
     </div>
     <input type="submit" class="btn btn-success float-right" [disabled]="formBrand.invalid || loading" value="Save">
+    <button type="button" class="btn btn-danger float-right mr-3" (click)="deleteEntity()">Delete</button>
     <a href="/brands" class="btn btn-primary float-right mr-3">Cancel</a>
 </form>

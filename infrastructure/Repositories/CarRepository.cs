@@ -45,9 +45,14 @@ namespace Infrastructure.Repositories
 
         public List<Car> GetAll()
         {
-            return db.Car.Include(c => c.carModel).ThenInclude(cm => cm.brand).ToList();
+            return db.Car.Include(c => c.carModel).ThenInclude(cm => cm.brand).OrderBy(cm => cm.id).ToList();
         }
-
+        public void Delete(int id)
+        {
+            var entity = FindById(id);
+            if (entity == null) { return; }
+            db.Remove(entity);
+        }
         public void SaveChanges()
         {
             db.SaveChanges();

@@ -52,7 +52,7 @@ namespace Api.Controllers
         [EnableCors("corsapp")]
         public ActionResult Delete(int id)
         {
-            Delete(id);
+            DeleteEntity(id);
             return Ok();
         }
 

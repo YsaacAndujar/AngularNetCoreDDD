@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CrudapiService } from 'src/app/crudapi.service';
 import { Brand } from 'src/app/interfaces/brand';
 import { Car } from 'src/app/interfaces/car';
@@ -16,7 +16,7 @@ export class CardetailsComponent {
   brands:Brand[] = []
   brandId: number = 0
   carModels:CarModel[] = []
-  constructor(private api: CrudapiService<Car, number>,private route: ActivatedRoute, private apiBrandModel: CrudapiService<CarModel, number>){
+  constructor(private api: CrudapiService<Car, number>,private route: ActivatedRoute, private apiBrandModel: CrudapiService<CarModel, number>, private router: Router){
     api.setBase('brands')
   }
   get year(){
@@ -60,5 +60,14 @@ export class CardetailsComponent {
     this.api.update(this.formCar.value as Car).subscribe((data: Car) => {
       alert('Car: updated')
     });
+  }
+  deleteEntity(){
+    if (!confirm('Are you sure that you want to delete this entity and the data related?')) {
+      return
+    }
+    const id = this.route.snapshot.params['id'];
+    this.api.delete(id).subscribe(()=>{
+      this.router.navigate(['/cars']);
+    })
   }
 }

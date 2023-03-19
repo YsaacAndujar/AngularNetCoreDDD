@@ -41,9 +41,14 @@ namespace Infrastructure.Repositories
 
         public List<Brand> GetAll()
         {
-            return db.Brands.ToList();
+            return db.Brands.OrderBy(b => b.id).ToList();
         }
-
+        public void Delete(int id)
+        {
+            var entity = FindById(id);
+            if (entity == null) { return; }
+            db.Remove(entity);
+        }
         public void SaveChanges()
         {
             db.SaveChanges();

@@ -21,7 +21,6 @@ namespace Infrastructure.Config
             //    .WithMany(cm => cm.Cars)
             //    //.HasForeignKey(c => c.carModelId)
             //    .OnDelete(DeleteBehavior.Cascade);
-            builder.HasIndex(c => new { c.carModelId, c.year }).IsUnique();
 
         }
     }

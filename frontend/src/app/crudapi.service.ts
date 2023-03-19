@@ -28,6 +28,6 @@ export class CrudapiService<TEntity, TentityId> {
   }
 
   public delete(id: TentityId): Observable<TEntity> {
-    return this.http.delete<TEntity>(this.url);
+    return this.http.delete<TEntity>(this.url+id);
   }
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Brand } from 'src/app/interfaces/brand';
 import { CrudapiService } from 'src/app/crudapi.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-branddetails',
@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BranddetailsComponent {
   loading:Boolean = false
-  constructor(private api: CrudapiService<Brand, number>,private route: ActivatedRoute){
+  constructor(private api: CrudapiService<Brand, number>,private route: ActivatedRoute, private router: Router){
     api.setBase('brands')
   }
   get name(){
@@ -36,5 +36,14 @@ export class BranddetailsComponent {
     this.api.update(this.formBrand.value as Brand).subscribe((data: Brand) => {
       alert('Brand: updated')
     });
+  }
+  deleteEntity(){
+    if (!confirm('Are you sure that you want to delete this entity and the data related?')) {
+      return
+    }
+    const id = this.route.snapshot.params['id'];
+    this.api.delete(id).subscribe(()=>{
+      this.router.navigate(['/brands']);
+    })
   }
 }
