@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Brand } from 'src/app/brand';
+import { Brand } from 'src/app/interfaces/brand';
 import { CrudapiService } from 'src/app/crudapi.service';
 
 @Component({

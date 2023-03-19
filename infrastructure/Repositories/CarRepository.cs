@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,12 @@ namespace Infrastructure.Repositories
             {
                 return;
             }
-            db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            var cm = db.CarModels.Find(entity.carModelId);
+            if (cm == null) { throw new ArgumentException("Car Model is required or does not exist"); }
+            entityDb.year = entity.year;
+            entityDb.carModelId = cm.id;
+            entityDb.carModel = cm;
+            //db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
 
         public Car FindById(int id)
@@ -39,7 +45,7 @@ namespace Infrastructure.Repositories
 
         public List<Car> GetAll()
         {
-            return db.Car.ToList();
+            return db.Car.Include(c => c.carModel).ThenInclude(cm => cm.brand).ToList();
         }
 
         public void SaveChanges()

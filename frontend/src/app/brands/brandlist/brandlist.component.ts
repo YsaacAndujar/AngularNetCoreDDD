@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Brand } from 'src/app/brand';
+import { Brand } from 'src/app/interfaces/brand';
 import { CrudapiService } from 'src/app/crudapi.service';
 
 @Component({

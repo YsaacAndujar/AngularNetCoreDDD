@@ -26,7 +26,7 @@ namespace Api.Helpers.CustomControllers
         {
             return service.AddEntity(entity);
         }
-        public void Delete(TEntity id)
+        public void DeleteEntity(TEntityId id)
         {
             service.Delete(id);
         }

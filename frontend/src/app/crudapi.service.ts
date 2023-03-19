@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CrudapiService<TEntity, TentityId> {
-  
   url:string = 'https://localhost:8001/api/'
   public setBase(base: string):void{
     this.url= `https://localhost:8001/api/${base}/`

@@ -25,8 +25,8 @@ namespace Api.Controllers
             return mapper.Map<List<BrandDto>>(GetAll());
         }
         [HttpGet]
-        [EnableCors("corsapp")]
         [Route("{id}")]
+        [EnableCors("corsapp")]
         public ActionResult<BrandDto> Get(int id)
         {
             return mapper.Map<BrandDto>(FindById(id));
@@ -48,8 +48,8 @@ namespace Api.Controllers
             return Ok();
         }
         [HttpDelete]
-        [EnableCors("corsapp")]
         [Route("{id}")]
+        [EnableCors("corsapp")]
         public ActionResult Delete(int id)
         {
             Delete(id);

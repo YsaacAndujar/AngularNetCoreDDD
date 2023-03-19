@@ -1,0 +1,24 @@
+<a [routerLink]="['/carsmodels/create']" class="btn btn-primary float-right mb-3">New</a>
+<ng-container *ngIf="loading"><h4>Loading...</h4></ng-container>
+<ng-container *ngIf="!loading">
+    <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Brand Id</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let carModel of carModels">
+            <th scope="row">{{ carModel.id }}</th>
+            <td>{{ carModel.name }}</td>
+            <td>{{ carModel.brand.name }}</td>
+            <td>{{ carModel.brand.id }}</td>
+            <td><a [routerLink]="['/carsmodels/',carModel.id]" class="btn btn-warning float-right">Edit</a></td>
+          </tr>
+        </tbody>
+      </table>
+</ng-container>

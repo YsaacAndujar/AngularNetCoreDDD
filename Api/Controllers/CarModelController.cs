@@ -5,6 +5,7 @@ using Api.Helpers.CustomControllers;
 using Api.Helpers.DTOs.CarModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace Api.Controllers
 {
@@ -13,11 +14,14 @@ namespace Api.Controllers
     public class CarModelController : CrudBaseController<CarModel, int>
     {
         IMapper mapper;
-        public CarModelController(CarModelService carModelService, IMapper _mapper) : base(carModelService)
+        CarModelService carModelService;
+        public CarModelController(CarModelService _carModelService, IMapper _mapper) : base(_carModelService)
         {
             mapper = _mapper;
+            carModelService = _carModelService;
         }
         [HttpGet]
+        [EnableCors("corsapp")]
         public ActionResult<List<CarModelDto>> Get()
         {
 
@@ -25,18 +29,28 @@ namespace Api.Controllers
         }
         [HttpGet]
         [Route("{id}")]
+        [EnableCors("corsapp")]
         public ActionResult<CarModelDto> Get(int id)
         {
             return mapper.Map<CarModelDto>(FindById(id));
         }
+        [HttpGet]
+        [Route("{id}")]
+        [EnableCors("corsapp")]
+        public ActionResult<List<CarModelDto>> GetForBrand(int id)
+        {
+            return mapper.Map<List<CarModelDto>>(GetAll().Where(cm=>cm.brandId ==id));
+        }
 
         [HttpPost]
+        [EnableCors("corsapp")]
         public ActionResult<CarModelDto> Create([FromBody] CarModelCreateDto carModel)
         {
             var entity = mapper.Map<CarModel>(carModel);
             return mapper.Map<CarModelDto>(AddEntity(entity));
         }
         [HttpPut]
+        [EnableCors("corsapp")]
         public ActionResult Put(CarModelUpdateDto carModelUpdateDto)
         {
             var entity = mapper.Map<CarModel>(carModelUpdateDto);
@@ -45,9 +59,10 @@ namespace Api.Controllers
         }
         [HttpDelete]
         [Route("{id}")]
+        [EnableCors("corsapp")]
         public ActionResult Delete(int id)
         {
-            Delete(id);
+            DeleteEntity(id);
             return Ok();
         }
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -29,7 +30,15 @@ namespace Infrastructure.Repositories
             {
                 return;
             }
-            db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            var brand = db.Brands.Find(entity.brandId);
+            if(brand == null)
+            {
+                throw new ArgumentException("Brand is required or does not exist");
+            }
+            entityDb.name = entity.name;
+            entityDb.brandId = brand.id;
+            entityDb.brand = brand;
+            //db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
 
         public CarModel FindById(int id)
@@ -39,9 +48,14 @@ namespace Infrastructure.Repositories
 
         public List<CarModel> GetAll()
         {
-            return db.CarModels.ToList();
+            return db.CarModels.Include(cm => cm.brand).ToList();
         }
-
+        public void Delete(int id)
+        {
+            var entity = FindById(id);
+            if (entity == null) { return; }
+            db.Remove(entity);
+        }
         public void SaveChanges()
         {
             db.SaveChanges();

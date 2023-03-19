@@ -1,0 +1,21 @@
+<form [formGroup]="formCarModel" (ngSubmit)="submit()">
+    <div class="form-group">
+        <label >Name*:</label>
+        <input class="form-control" placeholder="Enter brand name" formControlName="name">
+        <div class="alert alert-danger mt-2" [hidden]="name?.valid || name?.pristine">
+          Name is required
+        </div>
+      </div>
+      <div class="form-group">
+          <label >Brand*:</label>
+          <select class="form-control" formControlName="brandId">
+              <option selected [value]="0">Select Brand</option>
+              <option *ngFor="let brand of brands" [value]="brand.id">{{brand.name}}</option>
+          </select>
+          <div class="alert alert-danger mt-2" [hidden]="brandId?.value != 0 || brandId?.pristine">
+            Brand is required
+          </div>
+      </div>
+    <input type="submit" class="btn btn-success float-right" [disabled]="formCarModel.invalid || loading || brandId?.value ==0 " value="Save">
+    <a href="/carsmodels" class="btn btn-primary float-right mr-3">Cancel</a>
+</form>

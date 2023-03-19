@@ -7,7 +7,7 @@ using Domain.Interfaces;
 namespace Application.Interfaces
 {
     public interface IBaseService<TEntity, TEntityId>
-        :IAddEntity<TEntity>, IList<TEntity, TEntityId>,IEdit<TEntity>, IDelete<TEntity>
+        :IAddEntity<TEntity>, IList<TEntity, TEntityId>,IEdit<TEntity>, IDelete<TEntityId>
     {
     }
 }

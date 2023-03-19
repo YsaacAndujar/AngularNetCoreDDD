@@ -1,0 +1,28 @@
+<form [formGroup]="formCar" (ngSubmit)="submit()">
+    <div class="form-group">
+        <label >Brand*:</label>
+        <select class="form-control" [(ngModel)]="brandId" [ngModelOptions]="{standalone: true}" (change)="carModelId?.setValue(0)">
+            <option [value]="0">Select Brand</option>
+            <option *ngFor="let brand of brands" [value]="brand.id">{{brand.name}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label >Car Model*:</label>
+        <select class="form-control" formControlName="carModelId">
+            <option selected [value]="0">Select Car Model</option>
+            <option *ngFor="let cm of carModelsFiltered" [value]="cm.id">{{cm.name}}</option>
+        </select>
+        <div class="alert alert-danger mt-2" [hidden]="carModelId?.value != 0 || carModelId?.pristine">
+          Car Model is required
+        </div>
+    </div>
+    <div class="form-group">
+        <label >Year*:</label>
+        <input class="form-control" placeholder="Enter car year" formControlName="year">
+        <div class="alert alert-danger mt-2" [hidden]="year?.valid || year?.pristine">
+          Year has to be >= 1
+        </div>
+      </div>
+    <input type="submit" class="btn btn-success float-right" [disabled]="formCar.invalid || creating || carModelId?.value==0" value="Submit">
+    <a href="/carsmodels" class="btn btn-primary float-right mr-3">Cancel</a>
+</form>
