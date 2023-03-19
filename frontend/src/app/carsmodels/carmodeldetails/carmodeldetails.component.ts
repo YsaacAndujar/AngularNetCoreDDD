@@ -33,7 +33,7 @@ export class CarmodeldetailsComponent {
     this.api.getAll().subscribe((data: Brand[]) => {
       this.brands = data
     },(error:any)=>{
-      alert(`Error fetching brands: ${error}`)
+      alert(`Error fetching brands`)
     });
 
     const id = this.route.snapshot.params['id'];
@@ -43,7 +43,7 @@ export class CarmodeldetailsComponent {
       this.loading = false
     },(error:any)=>{
       console.log(error)
-      alert(`Error fetching car models: ${error}`)
+      alert(`Error fetching car models`)
     });
   }
   submit(){

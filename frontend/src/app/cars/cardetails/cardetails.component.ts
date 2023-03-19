@@ -52,7 +52,7 @@ export class CardetailsComponent {
       this.loading = false
     },(error:any)=>{
       console.log(error)
-      alert(`Error fetching car: ${error}`)
+      alert(`Error fetching car`)
     });
   }
   submit(){

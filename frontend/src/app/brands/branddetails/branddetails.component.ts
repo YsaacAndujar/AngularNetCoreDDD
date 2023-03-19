@@ -29,7 +29,7 @@ export class BranddetailsComponent {
       this.loading = false
     },(error:any)=>{
       console.log(error)
-      alert(`Error fetching brands: ${error}`)
+      alert(`Error fetching brands`)
     });
   }
   submit(){
